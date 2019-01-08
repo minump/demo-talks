@@ -9,7 +9,12 @@ client = smartcar.AuthClient(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri='http://localhost:8000/callback',
-    scope=['read_vehicle_info', 'read_location', 'control_security']
+    scope=[
+        'read_vehicle_info',
+        'read_location',
+        'read_odometer',
+        'control_security'
+    ]
 )
 
 # 2. Create a new webserver with the Flask framework.
@@ -18,9 +23,9 @@ app = Flask(__name__)
 # 3. Create a page with a 'Connect Car' button.
 @app.route('/', methods=['GET'])
 def index():
-    auth_url = client.get_auth_url(force=True)
+    auth_url = client.get_auth_url()
     return '''
-        <h1>Hello, World!</h1>jjj
+        <h1>Hello, World!</h1>
         <a href=%s>
           <button>Connect Car</button>
         </a>
